@@ -43,6 +43,7 @@ public abstract class Device extends Thread {
 	 * updates the list of nearby devices
 	 */
 	protected void detectNearbyDevices() {
+		// run on a different thread from the main
 		new Thread(){
 			@Override
 			public void run() {
@@ -55,7 +56,12 @@ public abstract class Device extends Thread {
 	 * broadcast an advertisement message to the nearby devices
 	 */
 	protected void discovery() {
-		
+		new Thread(){
+			@Override
+			public void run() {
+				
+			}
+		}.start();
 	}
 	
 	/**
