@@ -4,7 +4,14 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Device {
+/**
+ * represents a virtual device, it could be a mobile device, mobile edge device
+ * or stationary server. 
+ * 
+ * @author minhld
+ *
+ */
+public abstract class Device extends Thread {
 	public enum DeviceType {
 		Mobile,
 		MobileEdge,
@@ -14,11 +21,49 @@ public abstract class Device {
 	public String name;
 	public DeviceType type;
 	public Point location;
-	
 	/**
 	 * list of nearby device
 	 */
-	public List<Device> deviceList = new ArrayList<>();
+	public List<Device> nearbyDevices = new ArrayList<>();
+	
+	public DeviceListener listener;
+	
+	public void setDeviceListener(DeviceListener listener) {
+		this.listener = listener;
+	}
+	
+	/**
+	 * the main entry points
+	 */
+	public void run() {
+		
+	}
+	
+	/**
+	 * updates the list of nearby devices
+	 */
+	protected void detectNearbyDevices() {
+		new Thread(){
+			@Override
+			public void run() {
+				
+			}
+		}.start();
+	}
+	
+	/**
+	 * broadcast an advertisement message to the nearby devices
+	 */
+	protected void discovery() {
+		
+	}
+	
+	/**
+	 * connects to a nearby device
+	 */
+	protected void connectToDevice() {
+		
+	}
 	
 	/** specifications of the device
 	 * 
