@@ -7,6 +7,15 @@ public abstract class Movement {
 	protected int period;
 	
 	/**
+	 * the period may be randomly changed
+	 * @param p11
+	 * @param p22
+	 */
+	public Movement(Point p11, Point p22) {
+		
+	}
+	
+	/**
 	 * 
 	 * @param p11: top-left corner location
 	 * @param p22: bottom-right corner location
