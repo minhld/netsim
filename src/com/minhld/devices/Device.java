@@ -1,8 +1,7 @@
 package com.minhld.devices;
 
 import java.awt.Point;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 
 /**
  * represents a virtual device, it could be a mobile device, mobile edge device
@@ -18,25 +17,31 @@ public abstract class Device extends Thread {
 		StationaryServer
 	}
 	
-	public String name;
-	public DeviceType type;
-	public Point location;
+	protected String name;
+	protected DeviceType type;
+	protected Point location;
 	/**
 	 * list of nearby device
 	 */
-	public List<Device> nearbyDevices = new ArrayList<>();
-	
-	public DeviceListener listener;
-	
+	public HashMap<String, Device> nearbyDevices = new HashMap<String, Device>();
+	/**
+	 * main listener
+	 */
+	protected DeviceListener listener;
 	public void setDeviceListener(DeviceListener listener) {
 		this.listener = listener;
 	}
+	/**
+	 * movement period
+	 */
+	protected Movement movement;
 	
 	/**
 	 * the main entry points
 	 */
 	public void run() {
-		
+		// start randomly moving
+		startMoving();
 	}
 	
 	/**
@@ -44,7 +49,7 @@ public abstract class Device extends Thread {
 	 */
 	protected void detectNearbyDevices() {
 		// run on a different thread from the main
-		new Thread(){
+		new Thread() {
 			@Override
 			public void run() {
 				
@@ -55,8 +60,8 @@ public abstract class Device extends Thread {
 	/**
 	 * broadcast an advertisement message to the nearby devices
 	 */
-	protected void discovery() {
-		new Thread(){
+	protected void discover() {
+		new Thread() {
 			@Override
 			public void run() {
 				
@@ -64,11 +69,40 @@ public abstract class Device extends Thread {
 		}.start();
 	}
 	
+	
+	/**
+	 * starts moving in the virtual environment
+	 */
+	protected void startMoving() {
+		new Thread() {
+			@Override
+			public void run() {
+				while (true) {
+					// update location on this device
+					Device.this.location = Device.this.movement.move();
+					
+					// send location change event to the monitor
+					listener.locationUpdated(Device.this.location);
+					
+					// sleep for a moment
+					try {
+						sleep(Device.this.movement.period);
+					} catch (Exception e) { }
+				}
+			}
+		}.start();
+	}
+
 	/**
 	 * connects to a nearby device
 	 */
-	protected void connectToDevice() {
-		
+	public abstract void connectToDevice();
+
+	/**
+	 * user needs to define the movement here
+	 */
+	public void setMovement(Movement movement) {
+		this.movement = movement;
 	}
 	
 	/** specifications of the device
@@ -94,6 +128,7 @@ public abstract class Device extends Thread {
 		public void discoveryCompleted();
 		public void connectionEstablished();
 		public void networkChanged();
-		public void deviceListUpdated();
+		public void deviceListUpdated(HashMap<String, Device> nearbyDevices);
+		public void locationUpdated(Point location);
 	}
 }
