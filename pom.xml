@@ -13,7 +13,15 @@
           <source>1.8</source>
           <target>1.8</target>
         </configuration>
-      </plugin>
-    </plugins>
+      </plugin>      
+    </plugins>    
   </build>
+  <dependencies>
+  	<!-- https://mvnrepository.com/artifact/org.zeromq/jeromq -->
+	<dependency>
+      <groupId>org.zeromq</groupId>
+      <artifactId>jeromq</artifactId>
+      <version>0.3.6</version>
+	</dependency>
+  </dependencies>
 </project>
