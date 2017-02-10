@@ -2,6 +2,7 @@ package com.minhld.devices;
 
 import java.awt.Point;
 import java.util.HashMap;
+import java.util.UUID;
 
 /**
  * represents a virtual device, it could be a mobile device, mobile edge device
@@ -40,8 +41,18 @@ public abstract class Device extends Thread {
 	 * the main entry points
 	 */
 	public void run() {
+		// create random information
+		setupInfo();
+		
 		// start randomly moving
 		startMoving();
+	}
+	
+	/**
+	 * setup basic information including ID, type and so on
+	 */
+	protected void setupInfo() {
+		this.name = UUID.randomUUID().toString();
 	}
 	
 	/**
@@ -80,6 +91,7 @@ public abstract class Device extends Thread {
 				while (true) {
 					// update location on this device
 					Device.this.location = Device.this.movement.move();
+					System.out.println("[" + Device.this.name + "]" + Device.this.location.x + "," + Device.this.location.y);
 					
 					// send location change event to the monitor
 					listener.locationUpdated(Device.this.location);

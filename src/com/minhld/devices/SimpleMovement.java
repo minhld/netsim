@@ -21,43 +21,43 @@ public class SimpleMovement extends Movement {
 
 	@Override
 	public Point move() {
-		// generate a new location based on the current one
-		location = genRandLocation(location);
+		location = nextMove(location);
 		return location;
 	}
 	
-	private Point genRandLocation(Point currentLocation) {
-		int rand = (int) Math.floor(Math.random() * 9);
-		switch (rand) {
+	private Point nextMove(Point currLocation) {
+		int numOfDirects = 9;
+		int i = (int) (Math.random() * numOfDirects);
+		
+		switch (i) {
 			case 0 : {
-				// no moving
-				return currentLocation;
+				return currLocation;
 			}
 			case 1 : {
-				return new Point(currentLocation.x, currentLocation.y + 1);
+				return new Point(currLocation.x, currLocation.y + 1);
 			}
 			case 2 : {
-				return new Point(currentLocation.x + 1, currentLocation.y + 1);
+				return new Point(currLocation.x, currLocation.y - 1);				
 			}
 			case 3 : {
-				return new Point(currentLocation.x - 1, currentLocation.y + 1);
+				return new Point(currLocation.x + 1, currLocation.y);				
 			}
 			case 4 : {
-				return new Point(currentLocation.x, currentLocation.y - 1);
+				return new Point(currLocation.x + 1, currLocation.y + 1);				
 			}
 			case 5 : {
-				return new Point(currentLocation.x + 1, currentLocation.y - 1);
+				return new Point(currLocation.x + 1, currLocation.y - 1);				
 			}
 			case 6 : {
-				return new Point(currentLocation.x - 1, currentLocation.y - 1);
+				return new Point(currLocation.x - 1, currLocation.y);				
 			}
 			case 7 : {
-				return new Point(currentLocation.x + 1, currentLocation.y);
+				return new Point(currLocation.x - 1, currLocation.y + 1);				
 			}
 			case 8 : {
-				return new Point(currentLocation.x - 1, currentLocation.y);
+				return new Point(currLocation.x - 1, currLocation.y - 1);
 			}
 		}
-		return currentLocation;
+		return currLocation;
 	}
 }
