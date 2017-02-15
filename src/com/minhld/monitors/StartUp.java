@@ -10,8 +10,9 @@ import com.minhld.devices.SimpleMovement;
 public class StartUp extends Thread {
 	public void run() {
 		int numOfDevs = 1;
+		// points to define top-left and bottom-right corners 
 		Point p11 = new Point(0, 0);
-		Point p22 = new Point(1000, 1000);
+		Point p22 = new Point(10000, 10000);
 		
 		MobileDevice dev;
 		for (int i = 0; i < numOfDevs; i++) {
