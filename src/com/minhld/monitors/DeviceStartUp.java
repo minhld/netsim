@@ -10,7 +10,7 @@ import com.minhld.devices.MobileDevice;
 import com.minhld.devices.SimpleMovement;
 import com.minhld.utils.Constants;
 
-public class StartUp extends Thread {
+public class DeviceStartUp extends Thread {
 	public void run() {
 		int numOfDevs = 10;
 		// points to define top-left and bottom-right corners 
@@ -112,6 +112,6 @@ public class StartUp extends Thread {
 	}
 	
 	public static void main(String args[]) {
-		new StartUp().start();
+		new DeviceStartUp().start();
 	}
 }
