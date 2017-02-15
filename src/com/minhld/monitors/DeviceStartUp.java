@@ -3,14 +3,19 @@ package com.minhld.monitors;
 import java.awt.Point;
 import java.util.HashMap;
 
-import org.zeromq.ZMQ;
 
 import com.minhld.devices.Device;
 import com.minhld.devices.MobileDevice;
 import com.minhld.devices.SimpleMovement;
-import com.minhld.utils.Constants;
+import com.minhld.utils.SignalServer;
 
 public class DeviceStartUp extends Thread {
+	private DeviceStartListener listener;
+	
+	public void setDeviceStartListener(DeviceStartListener listener) {
+		this.listener = listener;
+	}
+	
 	public void run() {
 		int numOfDevs = 10;
 		// points to define top-left and bottom-right corners 
@@ -20,6 +25,12 @@ public class DeviceStartUp extends Thread {
 		// initiate signal server
 		SignalServer signalServer = new SignalServer();
 		signalServer.setDeviceNumber(numOfDevs);
+		signalServer.setSignalServerListener(new SignalServer.SignalServerListener() {
+			@Override
+			public void allAcksReceived() {
+				DeviceStartUp.this.listener.deviceLocationUpdated();
+			}
+		});
 		signalServer.start();
 		
 		MobileDevice dev;
@@ -62,56 +73,7 @@ public class DeviceStartUp extends Thread {
 		}
 	}
 	
-	private class SignalServer extends Thread {
-		private int deviceNumber = 0;
-		
-		public void setDeviceNumber(int deviceNumber) {
-			this.deviceNumber = deviceNumber;
-		}
-		
-		public void run() {
-			ZMQ.Context context = ZMQ.context(1);
-
-            // Socket to talk to workers
-            ZMQ.Socket inquirer = context.socket(ZMQ.REP);
-            inquirer.bind("tcp://" + Constants.MY_IP + ":" + Constants.SIGNAL_PORT);
-
-            ZMQ.Poller poller = new ZMQ.Poller(1);
-            poller.register(inquirer, ZMQ.Poller.POLLIN);
-
-            byte[] resp;
-
-            while (!isInterrupted()) {
-
-                int totalPoll = 0;
-                while (totalPoll < this.deviceNumber && poller.poll(100) > 0) {
-                    // received the response from client
-                    resp = inquirer.recv();
-
-                    // send a trigger signal back to the client so that it can
-                    // restart the listening loop
-                    inquirer.send("");
-
-                    totalPoll++;
-
-                    // if the total poll number reaches the number of workers,
-                    // we will return a message for that event
-                    if (totalPoll == this.deviceNumber) {
-                    	allAcksReceived();
-                    }
-                }
-            }
-
-            inquirer.close();
-            context.term();
-		}
-		
-		private void allAcksReceived() {
-			
-		}
-	}
-	
-	public static void main(String args[]) {
-		new DeviceStartUp().start();
+	public interface DeviceStartListener {
+		public void deviceLocationUpdated();
 	}
 }

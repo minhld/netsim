@@ -7,6 +7,7 @@ import java.util.UUID;
 import org.zeromq.ZMQ;
 
 import com.minhld.utils.Constants;
+import com.minhld.utils.SignalClient;
 
 /**
  * represents a virtual device, it could be a mobile device, mobile edge device
@@ -52,7 +53,7 @@ public abstract class Device extends Thread {
 		startMoving();
 		
 		// start signal client to send locations to server
-		new SignalClient().start();
+		new SignalClient2().start();
 	}
 	
 	/**
@@ -151,30 +152,10 @@ public abstract class Device extends Thread {
 		public void locationUpdated(Point location);
 	}
 	
-	private class SignalClient extends Thread {
-		private ZMQ.Context context;
-	    private ZMQ.Socket responder;
-	    
-		public void run() {
-	        this.context = ZMQ.context(1);
-
-            responder = this.context.socket(ZMQ.REQ);
-            responder.connect("tcp://" + Constants.MY_IP + ":" + Constants.SIGNAL_PORT);
-
-            while (!Thread.currentThread().isInterrupted()) {
-                // send back locations
-            	responder.send(buildResponse(location));
-
-                // waits for location request
-                responder.recv();
-            }
-            
-            responder.close();
-            context.term();
-		}
-		
-		private String buildResponse(Point location) {
-			return "{x:" + location.x + ",y:" + location + "}";
+	private class SignalClient2 extends SignalClient {
+		@Override
+		public String createResponse() {
+			return "{x:" + Device.this.location.x + ",y:" + Device.this.location + "}";
 		}
 	}
 }
