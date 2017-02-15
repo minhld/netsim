@@ -4,9 +4,6 @@ import java.awt.Point;
 import java.util.HashMap;
 import java.util.UUID;
 
-import org.zeromq.ZMQ;
-
-import com.minhld.utils.Constants;
 import com.minhld.utils.SignalClient;
 
 /**
@@ -54,6 +51,15 @@ public abstract class Device extends Thread {
 		
 		// start signal client to send locations to server
 		new SignalClient2().start();
+	}
+	
+	/**
+	 * this function will terminate the device. this could happen 
+	 * when device moves out of the management area or disconnect
+	 * from socket connection. 
+	 */
+	public void term() {
+		
 	}
 	
 	/**
