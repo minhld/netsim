@@ -49,6 +49,11 @@ public class DeviceMonitor extends Thread {
 	}
 	
 	public static void main(String args[]) {
+		// start the devices
+		new DeviceStartUp().start();
+		
+		// start the device monitor
 		new DeviceMonitor().start();
+		
 	}
 }

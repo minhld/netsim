@@ -52,6 +52,7 @@ public class SignalServer extends Thread {
 	}
 	
 	public interface SignalServerListener {
+		public void updateDeviceInfo();
 		public void allAcksReceived();
 	}
 }

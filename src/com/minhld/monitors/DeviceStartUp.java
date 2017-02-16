@@ -41,31 +41,26 @@ public class DeviceStartUp extends Thread {
 				
 				@Override
 				public void networkChanged() {
-					// TODO Auto-generated method stub
 					
 				}
 				
 				@Override
 				public void locationUpdated(Point location) {
-					// TODO Auto-generated method stub
 					
 				}
 				
 				@Override
 				public void discoveryCompleted() {
-					// TODO Auto-generated method stub
 					
 				}
 				
 				@Override
 				public void deviceListUpdated(HashMap<String, Device> nearbyDevices) {
-					// TODO Auto-generated method stub
 					
 				}
 				
 				@Override
 				public void connectionEstablished() {
-					// TODO Auto-generated method stub
 					
 				}
 			});

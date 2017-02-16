@@ -14,6 +14,9 @@ import com.minhld.utils.SignalClient;
  *
  */
 public abstract class Device extends Thread {
+	/**
+	 * main device type
+	 */
 	public enum DeviceType {
 		Mobile,
 		MobileEdge,
@@ -161,7 +164,22 @@ public abstract class Device extends Thread {
 	private class SignalClient2 extends SignalClient {
 		@Override
 		public String createResponse() {
-			return "{x:" + Device.this.location.x + ",y:" + Device.this.location + "}";
+			return Device.this.getDeviceInfo();
 		}
+	}
+	
+	public String getDeviceInfo() {
+		String keySets = "";
+		for (String deviceName : nearbyDevices.keySet()) {
+			keySets += "," + deviceName;
+		}
+		if (keySets.length() > 1) { 
+			keySets = keySets.substring(1);
+		}
+		
+		return "name=" + Device.this.getName() + ";" + 
+				"x=" + Device.this.location.x + ";" + 
+				"y=" + Device.this.location.y + ";" + 
+				"nearbys=" + keySets + "";
 	}
 }
