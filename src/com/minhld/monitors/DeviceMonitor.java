@@ -46,6 +46,15 @@ public class DeviceMonitor extends Thread {
 		mainFrame.setLocationRelativeTo(null);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setVisible(true);
+		
+		// set device startup environment
+		DeviceStartUp startUp = new DeviceStartUp();
+		startUp.setDeviceStartListener(new DeviceStartUp.DeviceStartListener() {
+			@Override
+			public void deviceLocationUpdated() {
+				
+			}
+		});
 	}
 	
 	public static void main(String args[]) {
