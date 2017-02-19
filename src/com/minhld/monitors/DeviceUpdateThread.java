@@ -24,8 +24,10 @@ public class DeviceUpdateThread extends Thread {
 				g.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 				g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-				g.setColor(Color.darkGray);
-				g.drawOval(pos++,pos++,10,10);
+				for (int i = 0; i < 30; i++) {
+					g.setColor(Color.darkGray);
+					g.drawOval((int)(Math.random()*1000),(int)(Math.random()*1200),10,10);
+				}
 			}
 			
 			try {

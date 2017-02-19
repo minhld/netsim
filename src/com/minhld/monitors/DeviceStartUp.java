@@ -30,6 +30,11 @@ public class DeviceStartUp extends Thread {
 			public void allAcksReceived() {
 				DeviceStartUp.this.listener.deviceLocationUpdated();
 			}
+
+			@Override
+			public void updateDeviceInfo() {
+				
+			}
 		});
 		signalServer.start();
 		
