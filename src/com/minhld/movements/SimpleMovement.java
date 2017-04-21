@@ -1,4 +1,4 @@
-package com.minhld.devices;
+package com.minhld.movements;
 
 import java.awt.Point;
 
@@ -11,12 +11,12 @@ import java.awt.Point;
  */
 public class SimpleMovement extends Movement {
 
-	public SimpleMovement(Point p11, Point p22) {
-		super(p11, p22);
+	public SimpleMovement(int simWidth, int simHeight) {
+		super(simWidth, simHeight);
 	}
 	
-	public SimpleMovement(Point p11, Point p22, int period) {
-		super(p11, p22, period);
+	public SimpleMovement(int simWidth, int simHeight, int period) {
+		super(simWidth, simHeight, period);
 	}
 
 	@Override

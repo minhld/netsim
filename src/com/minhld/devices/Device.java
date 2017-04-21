@@ -4,7 +4,10 @@ import java.awt.Point;
 import java.util.HashMap;
 import java.util.UUID;
 
+import com.minhld.movements.Movement;
+import com.minhld.movements.MovementFactory;
 import com.minhld.utils.SignalClient;
+import com.minhld.utils.SimProperties;
 
 /**
  * represents a virtual device, it could be a mobile device, mobile edge device
@@ -127,6 +130,18 @@ public abstract class Device extends Thread {
 	 */
 	public abstract void connectToDevice();
 
+	/**
+	 * assign movement by ID. this will be matched with the 
+	 * configuration file.
+	 * 
+	 * @param movementId
+	 */
+	public void setMovement(int movementId) {
+		int simWidth = SimProperties.getIntProp("network-width");
+		int simHeight = SimProperties.getIntProp("network-height");
+		this.movement = MovementFactory.getMovement(movementId, simWidth, simHeight);
+	}
+	
 	/**
 	 * user needs to define the movement here
 	 */
