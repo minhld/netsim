@@ -28,7 +28,9 @@ public class DeviceStartUp extends Thread {
 		signalServer.setSignalServerListener(new SignalServer.SignalServerListener() {
 			@Override
 			public void allAcksReceived() {
-				DeviceStartUp.this.listener.deviceLocationUpdated();
+				if (DeviceStartUp.this.listener != null) {
+					DeviceStartUp.this.listener.deviceLocationUpdated();
+				}
 			}
 
 			@Override

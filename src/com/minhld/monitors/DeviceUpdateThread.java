@@ -14,7 +14,6 @@ public class DeviceUpdateThread extends Thread {
 	
 	public void run() {
 		Graphics2D g;
-		int pos = 100;
 		while (true) {
 			g = (Graphics2D) canvas.getGraphics();
 			
@@ -25,8 +24,7 @@ public class DeviceUpdateThread extends Thread {
 				g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
 				for (int i = 0; i < 30; i++) {
-					g.setColor(Color.darkGray);
-					g.drawOval((int)(Math.random()*1000),(int)(Math.random()*1200),10,10);
+					drawDevice(g, Color.darkGray, (int)(Math.random()*1000), (int)(Math.random()*1200));
 				}
 			}
 			
@@ -34,5 +32,11 @@ public class DeviceUpdateThread extends Thread {
 				Thread.sleep(1000);
 			} catch (Exception e) { }
 		}
-	}	
+	}
+	
+	private void drawDevice(Graphics2D g, Color c, int posX, int posY) {
+		g.setColor(c);
+		g.fillOval(posX, posY, 10, 10);
+		g.drawString("D#5", posX - 2, posY + 20);
+	}
 }
