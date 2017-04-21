@@ -8,6 +8,7 @@ import com.minhld.devices.Device;
 import com.minhld.devices.MobileDevice;
 import com.minhld.devices.SimpleMovement;
 import com.minhld.utils.SignalServer;
+import com.minhld.utils.SimProperties;
 
 public class DeviceStartUp extends Thread {
 	private DeviceStartListener listener;
@@ -17,10 +18,14 @@ public class DeviceStartUp extends Thread {
 	}
 	
 	public void run() {
-		int numOfDevs = 10;
+		// get number of devices
+		int numOfDevs = SimProperties.getIntProp("num-of-nodes");
+		
 		// points to define top-left and bottom-right corners 
 		Point p11 = new Point(0, 0);
-		Point p22 = new Point(10000, 10000);
+		int width = SimProperties.getIntProp("network-width");
+		int height = SimProperties.getIntProp("network-height");
+		Point p22 = new Point(width, height);
 		
 		// initiate signal server
 		SignalServer signalServer = new SignalServer();
@@ -62,7 +67,7 @@ public class DeviceStartUp extends Thread {
 				}
 				
 				@Override
-				public void deviceListUpdated(HashMap<String, Device> nearbyDevices) {
+				public void nearbyDevicesUpdated(HashMap<String, Device> nearbyDevices) {
 					
 				}
 				

@@ -157,7 +157,7 @@ public abstract class Device extends Thread {
 		public void discoveryCompleted();
 		public void connectionEstablished();
 		public void networkChanged();
-		public void deviceListUpdated(HashMap<String, Device> nearbyDevices);
+		public void nearbyDevicesUpdated(HashMap<String, Device> nearbyDevices);
 		public void locationUpdated(Point location);
 	}
 	

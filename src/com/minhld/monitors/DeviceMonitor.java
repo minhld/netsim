@@ -12,6 +12,8 @@ import javax.swing.JToolBar;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
+import com.minhld.utils.SimProperties;
+
 public class DeviceMonitor extends Thread {
 	public void run() {
 		JFrame mainFrame = new JFrame("Device Monitor v1.0");
@@ -47,17 +49,20 @@ public class DeviceMonitor extends Thread {
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setVisible(true);
 		
-		// set device startup environment
-		DeviceStartUp startUp = new DeviceStartUp();
-		startUp.setDeviceStartListener(new DeviceStartUp.DeviceStartListener() {
-			@Override
-			public void deviceLocationUpdated() {
-				
-			}
-		});
+//		// set device startup environment
+//		DeviceStartUp startUp = new DeviceStartUp();
+//		startUp.setDeviceStartListener(new DeviceStartUp.DeviceStartListener() {
+//			@Override
+//			public void deviceLocationUpdated() {
+//				
+//			}
+//		});
 	}
 	
 	public static void main(String args[]) {
+		// load configuration
+		SimProperties.loadProps("basic.cfg");
+		
 		// start the devices
 		new DeviceStartUp().start();
 		

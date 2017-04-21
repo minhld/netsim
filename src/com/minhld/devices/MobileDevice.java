@@ -41,7 +41,7 @@ public class MobileDevice extends Device {
 		}
 
 		@Override
-		public void deviceListUpdated(HashMap<String, Device> nearbyDevices) {
+		public void nearbyDevicesUpdated(HashMap<String, Device> nearbyDevices) {
 			// TODO Auto-generated method stub
 			
 		}

@@ -15,7 +15,6 @@ public abstract class Movement {
 	 */
 	public Movement(Point p11, Point p22) {
 		this(p11, p22, DEFAULT_PERIOD);
-		this.period = DEFAULT_PERIOD;
 	}
 	
 	/**
