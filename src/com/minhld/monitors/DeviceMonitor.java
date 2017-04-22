@@ -33,9 +33,13 @@ public class DeviceMonitor extends Thread {
 	    // set canvas
 	    JPanel canvas = new JPanel();
 	    canvas.setBackground(Color.white);
-	    contentPane.add(canvas, BorderLayout.CENTER);
+	    contentPane.add(canvas, BorderLayout.WEST);
 	    
-	    new DeviceUpdateThread(canvas).start();
+	    // set control panel
+	    JPanel controller = new JPanel();
+	    contentPane.add(controller, BorderLayout.EAST);
+	    
+	    new DeviceGraphicsUpdate(canvas).start();
 	    
 	    // set windows properties
 		try {
@@ -43,8 +47,8 @@ public class DeviceMonitor extends Thread {
 			SwingUtilities.updateComponentTreeUI(mainFrame);
 			mainFrame.pack();
 		} catch (Exception e) { }
-		mainFrame.setSize(1200, 860);
-		mainFrame.setMinimumSize(new Dimension(1200, 860));
+		mainFrame.setSize(1500, 860);
+		mainFrame.setMinimumSize(new Dimension(1500, 860));
 		mainFrame.setLocationRelativeTo(null);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setVisible(true);

@@ -6,9 +6,9 @@ import java.awt.RenderingHints;
 
 import javax.swing.JPanel;
 
-public class DeviceUpdateThread extends Thread {
+public class DeviceGraphicsUpdate extends Thread {
 	JPanel canvas;
-	public DeviceUpdateThread(JPanel canvas) {
+	public DeviceGraphicsUpdate(JPanel canvas) {
 		this.canvas = canvas;
 	}
 	
