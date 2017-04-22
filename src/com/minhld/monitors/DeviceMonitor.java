@@ -47,8 +47,8 @@ public class DeviceMonitor extends Thread {
 			SwingUtilities.updateComponentTreeUI(mainFrame);
 			mainFrame.pack();
 		} catch (Exception e) { }
-		mainFrame.setSize(1500, 860);
-		mainFrame.setMinimumSize(new Dimension(1500, 860));
+		mainFrame.setSize(1280, 860);
+		mainFrame.setMinimumSize(new Dimension(1280, 860));
 		mainFrame.setLocationRelativeTo(null);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setVisible(true);

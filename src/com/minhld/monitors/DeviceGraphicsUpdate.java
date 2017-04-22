@@ -6,10 +6,15 @@ import java.awt.RenderingHints;
 
 import javax.swing.JPanel;
 
+import com.minhld.utils.SimProperties;
+
 public class DeviceGraphicsUpdate extends Thread {
 	JPanel canvas;
+	int updatePeriod = 0;
+	
 	public DeviceGraphicsUpdate(JPanel canvas) {
 		this.canvas = canvas;
+		this.updatePeriod = SimProperties.getIntProp("graphic-update-speed");
 	}
 	
 	public void run() {
@@ -29,7 +34,7 @@ public class DeviceGraphicsUpdate extends Thread {
 			}
 			
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(this.updatePeriod);
 			} catch (Exception e) { }
 		}
 	}

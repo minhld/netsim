@@ -184,6 +184,7 @@ public abstract class Device extends Thread {
 	}
 	
 	public String getDeviceInfo() {
+		// get list of the nearby devices
 		String keySets = "";
 		for (String deviceName : nearbyDevices.keySet()) {
 			keySets += "," + deviceName;
