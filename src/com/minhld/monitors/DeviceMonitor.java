@@ -8,6 +8,7 @@ import java.awt.Dimension;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JSplitPane;
 import javax.swing.JToolBar;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -32,13 +33,17 @@ public class DeviceMonitor extends Thread {
 		
 	    // set canvas
 	    JPanel canvas = new JPanel();
-	    canvas.setBackground(Color.white);
-	    contentPane.add(canvas, BorderLayout.WEST);
+	    canvas.setPreferredSize(new Dimension(860, 860));
 	    
 	    // set control panel
 	    JPanel controller = new JPanel();
-	    contentPane.add(controller, BorderLayout.EAST);
+	    controller.setBackground(Color.white);
+	    controller.setPreferredSize(new Dimension(400, 860));
 	    
+	    JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, canvas, controller);
+	    contentPane.add(splitPane, BorderLayout.CENTER);
+	    
+	    // initiate the device graphics updater
 	    new DeviceGraphicsUpdate(canvas).start();
 	    
 	    // set windows properties
@@ -47,20 +52,13 @@ public class DeviceMonitor extends Thread {
 			SwingUtilities.updateComponentTreeUI(mainFrame);
 			mainFrame.pack();
 		} catch (Exception e) { }
+		
 		mainFrame.setSize(1280, 860);
 		mainFrame.setMinimumSize(new Dimension(1280, 860));
 		mainFrame.setLocationRelativeTo(null);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setVisible(true);
 		
-//		// set device startup environment
-//		DeviceStartUp startUp = new DeviceStartUp();
-//		startUp.setDeviceStartListener(new DeviceStartUp.DeviceStartListener() {
-//			@Override
-//			public void deviceLocationUpdated() {
-//				
-//			}
-//		});
 	}
 	
 	public static void main(String args[]) {
