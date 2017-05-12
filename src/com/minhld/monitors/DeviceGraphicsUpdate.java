@@ -28,17 +28,13 @@ public class DeviceGraphicsUpdate extends Thread {
 				
 			} else {
 				g.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-				// g.setBackground(Color.lightGray);
 				g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
 				Device device;
 				for (String key : DeviceList.getKeySet()) {
 					device = DeviceList.get(key);
-					drawDevice(g, device, Color.darkGray);
+					drawDevice(g, device, Color.gray);
 				}
-//				for (int i = 0; i < DeviceList.length(); i++) {
-//					drawDevice(g, Color.darkGray, (int)(Math.random()*1000), (int)(Math.random()*1200));
-//				}
 			}
 			
 			try {

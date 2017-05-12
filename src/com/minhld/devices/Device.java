@@ -29,6 +29,11 @@ public abstract class Device extends Thread {
 	public String name;
 	public DeviceType type;
 	public Point location;
+	
+	public int ram;			// GB
+	public int CPU;			// GHz
+	public float battery;	// capacity = (total mAh / 1000)
+	
 	/**
 	 * list of nearby device
 	 */

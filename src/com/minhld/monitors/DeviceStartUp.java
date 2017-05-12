@@ -46,7 +46,7 @@ public class DeviceStartUp extends Thread {
 		for (int i = 0; i < numOfDevs; i++) {
 			deviceKey = Integer.toString(i);
 			dev = new MobileDevice();
-			dev.setName(deviceKey);
+			dev.name = deviceKey;
 			dev.setMovement(movementId);
 			dev.setDeviceListener(new SubDeviceListener(deviceKey));
 			DeviceList.add(deviceKey, dev);
