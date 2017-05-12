@@ -40,7 +40,7 @@ public class DeviceMonitor extends Thread {
 		
 	    // set canvas
 	    JPanel canvas = new JPanel();
-	    canvas.setBackground(Color.white);
+	    // canvas.setBackground(Color.lightGray);
 	    contentPane.add(canvas, BorderLayout.CENTER);
 	    
 	    // set control panel

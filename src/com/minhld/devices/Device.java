@@ -26,9 +26,9 @@ public abstract class Device extends Thread {
 		StationaryServer
 	}
 	
-	protected String name;
-	protected DeviceType type;
-	protected Point location;
+	public String name;
+	public DeviceType type;
+	public Point location;
 	/**
 	 * list of nearby device
 	 */
@@ -72,7 +72,7 @@ public abstract class Device extends Thread {
 	 * setup basic information including ID, type and so on
 	 */
 	protected void setupInfo() {
-		this.name = UUID.randomUUID().toString();
+		// this.name = UUID.randomUUID().toString();
 	}
 	
 	/**

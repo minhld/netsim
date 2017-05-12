@@ -6,6 +6,8 @@ import java.awt.RenderingHints;
 
 import javax.swing.JPanel;
 
+import com.minhld.devices.Device;
+import com.minhld.utils.DeviceList;
 import com.minhld.utils.SimProperties;
 
 public class DeviceGraphicsUpdate extends Thread {
@@ -26,11 +28,17 @@ public class DeviceGraphicsUpdate extends Thread {
 				
 			} else {
 				g.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+				// g.setBackground(Color.lightGray);
 				g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-				for (int i = 0; i < 30; i++) {
-					drawDevice(g, Color.darkGray, (int)(Math.random()*1000), (int)(Math.random()*1200));
+				Device device;
+				for (String key : DeviceList.getKeySet()) {
+					device = DeviceList.get(key);
+					drawDevice(g, device, Color.darkGray);
 				}
+//				for (int i = 0; i < DeviceList.length(); i++) {
+//					drawDevice(g, Color.darkGray, (int)(Math.random()*1000), (int)(Math.random()*1200));
+//				}
 			}
 			
 			try {
@@ -39,9 +47,11 @@ public class DeviceGraphicsUpdate extends Thread {
 		}
 	}
 	
-	private void drawDevice(Graphics2D g, Color c, int posX, int posY) {
+	private void drawDevice(Graphics2D g, Device dev, Color c) {
 		g.setColor(c);
+		int posX = dev.location.x;
+		int posY = dev.location.y;
 		g.fillOval(posX, posY, 10, 10);
-		g.drawString("D#5", posX - 2, posY + 20);
+		g.drawString("#" + dev.name, posX - 2, posY + 20);
 	}
 }
