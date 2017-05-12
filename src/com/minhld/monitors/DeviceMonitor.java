@@ -4,10 +4,16 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridLayout;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -15,6 +21,8 @@ import javax.swing.UIManager;
 import com.minhld.utils.SimProperties;
 
 public class DeviceMonitor extends Thread {
+	JTextArea infoText;
+	
 	public void run() {
 		JFrame mainFrame = new JFrame("Device Monitor v1.0");
 		Container contentPane = mainFrame.getContentPane();
@@ -33,11 +41,10 @@ public class DeviceMonitor extends Thread {
 	    // set canvas
 	    JPanel canvas = new JPanel();
 	    canvas.setBackground(Color.white);
-	    contentPane.add(canvas, BorderLayout.WEST);
+	    contentPane.add(canvas, BorderLayout.CENTER);
 	    
 	    // set control panel
-	    JPanel controller = new JPanel();
-	    contentPane.add(controller, BorderLayout.EAST);
+	    contentPane.add(buildControlPanel(), BorderLayout.EAST);
 	    
 	    new DeviceGraphicsUpdate(canvas).start();
 	    
@@ -67,11 +74,64 @@ public class DeviceMonitor extends Thread {
 		// load configuration
 		SimProperties.loadProps("basic.cfg");
 		
-		// start the devices
+		// set device startup environment
 		new DeviceStartUp().start();
 		
 		// start the device monitor
 		new DeviceMonitor().start();
 		
+	}
+	
+	/**
+	 * build the right controller panel
+	 * @return
+	 */
+	private JPanel buildControlPanel() {
+		JPanel controller = new JPanel();
+		controller.setLayout(new BorderLayout());
+		
+		// add network config panel
+		JPanel networkConfig = new JPanel();
+		networkConfig.setBorder(BorderFactory.createTitledBorder("Network Configuration"));
+		
+		GridLayout configLayout = new GridLayout(0, 2);
+		configLayout.setVgap(5);
+		networkConfig.setLayout(configLayout);
+		
+		// number of node field
+		JLabel lbl1 = new JLabel("Number of nodes ");
+		networkConfig.add(lbl1);
+		JTextField numOfNodeField = new JTextField(15);
+		int numOfDevs = SimProperties.getIntProp("num-of-nodes");
+		numOfNodeField.setText(Integer.toString(numOfDevs));
+		networkConfig.add(numOfNodeField);
+
+		// device max speed
+		JLabel lbl2 = new JLabel("Max Device Speed ");
+		networkConfig.add(lbl2);
+		JTextField devMaxSpeedField = new JTextField(15);
+		int devMaxSpeed = SimProperties.getIntProp("device-max-speed");
+		devMaxSpeedField.setText(Integer.toString(devMaxSpeed));
+		networkConfig.add(devMaxSpeedField);
+		
+		networkConfig.add(new JLabel());
+		JButton updateNetworkButton = new JButton("Update");
+		networkConfig.add(updateNetworkButton);
+		
+		controller.add(networkConfig, BorderLayout.NORTH);
+		
+		// add network info panel
+		JPanel infoPanel = new JPanel();
+		infoPanel.setBorder(BorderFactory.createTitledBorder("Network Log"));
+		
+		infoText = new JTextArea(30, 46);
+		infoText.setBorder(BorderFactory.createLineBorder(Color.gray));
+		infoText.setFont(new Font("courier", Font.PLAIN, 11));
+		infoText.setEditable(false);
+		infoPanel.add(infoText, BorderLayout.CENTER);
+		
+		controller.add(infoPanel, BorderLayout.SOUTH);
+		
+		return controller;
 	}
 }
