@@ -6,7 +6,6 @@ import java.util.HashMap;
 
 import com.minhld.devices.Device;
 import com.minhld.devices.MobileDevice;
-import com.minhld.movements.SimpleMovement;
 import com.minhld.utils.SignalServer;
 import com.minhld.utils.SimProperties;
 
@@ -44,7 +43,6 @@ public class DeviceStartUp extends Thread {
 		MobileDevice dev;
 		for (int i = 0; i < numOfDevs; i++) {
 			dev = new MobileDevice();
-			// dev.setMovement(new SimpleMovement(p11, p22));
 			dev.setMovement(movementId);
 			dev.setDeviceListener(new Device.DeviceListener() {
 				
