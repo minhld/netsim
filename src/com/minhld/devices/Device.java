@@ -33,10 +33,10 @@ public abstract class Device extends Thread {
 	public int CPU;			// GHz
 	public float battery;	// capacity = (total mAh / 1000)
 	
-	/**
-	 * list of nearby device
-	 */
-	public HashMap<String, Device> nearbyDevices = new HashMap<String, Device>();
+//	/**
+//	 * list of nearby device
+//	 */
+//	public HashMap<String, Device> nearbyDevices = new HashMap<String, Device>();
 	/**
 	 * main listener
 	 */
@@ -190,12 +190,12 @@ public abstract class Device extends Thread {
 	public String getDeviceInfo() {
 		// get list of the nearby devices
 		String keySets = "";
-		for (String deviceName : nearbyDevices.keySet()) {
-			keySets += "," + deviceName;
-		}
-		if (keySets.length() > 1) { 
-			keySets = keySets.substring(1);
-		}
+//		for (String deviceName : nearbyDevices.keySet()) {
+//			keySets += "," + deviceName;
+//		}
+//		if (keySets.length() > 1) { 
+//			keySets = keySets.substring(1);
+//		}
 		
 		return "name=" + Device.this.getName() + ";" + 
 				"x=" + Device.this.location.x + ";" + 

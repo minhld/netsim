@@ -7,6 +7,7 @@ import java.util.HashMap;
 import com.minhld.devices.Device;
 import com.minhld.devices.MobileDevice;
 import com.minhld.shareobjects.DeviceList;
+import com.minhld.shareobjects.DeviceLocations;
 import com.minhld.shareobjects.SimProperties;
 import com.minhld.utils.SignalServer;
 
@@ -74,9 +75,7 @@ public class DeviceStartUp extends Thread {
 		
 		@Override
 		public void locationUpdated(Point location) {
-			Device device = DeviceList.get(deviceKey);
-			device.location = location;
-			DeviceList.add(deviceKey, device);
+			DeviceLocations.updateLocation(deviceKey, location);
 		}
 		
 		@Override
