@@ -6,9 +6,9 @@ import java.util.HashMap;
 
 import com.minhld.devices.Device;
 import com.minhld.devices.MobileDevice;
-import com.minhld.utils.DeviceList;
+import com.minhld.shareobjects.DeviceList;
+import com.minhld.shareobjects.SimProperties;
 import com.minhld.utils.SignalServer;
-import com.minhld.utils.SimProperties;
 
 public class DeviceStartUp extends Thread {
 	private DeviceStartListener listener;

@@ -18,7 +18,7 @@ import javax.swing.JToolBar;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
-import com.minhld.utils.SimProperties;
+import com.minhld.shareobjects.SimProperties;
 
 public class DeviceMonitor extends Thread {
 	JTextArea infoText;

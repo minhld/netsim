@@ -2,12 +2,11 @@ package com.minhld.devices;
 
 import java.awt.Point;
 import java.util.HashMap;
-import java.util.UUID;
 
 import com.minhld.movements.Movement;
 import com.minhld.movements.MovementFactory;
+import com.minhld.shareobjects.SimProperties;
 import com.minhld.utils.SignalClient;
-import com.minhld.utils.SimProperties;
 
 /**
  * represents a virtual device, it could be a mobile device, mobile edge device
@@ -116,7 +115,7 @@ public abstract class Device extends Thread {
 				while (true) {
 					// update location on this device
 					Device.this.location = Device.this.movement.move();
-					System.out.println("[" + Device.this.name + "]" + Device.this.location.x + "," + Device.this.location.y);
+					//System.out.println("[" + Device.this.name + "]" + Device.this.location.x + "," + Device.this.location.y);
 					
 					// send location change event to the monitor
 					listener.locationUpdated(Device.this.location);

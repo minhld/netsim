@@ -7,8 +7,8 @@ import java.awt.RenderingHints;
 import javax.swing.JPanel;
 
 import com.minhld.devices.Device;
-import com.minhld.utils.DeviceList;
-import com.minhld.utils.SimProperties;
+import com.minhld.shareobjects.DeviceList;
+import com.minhld.shareobjects.SimProperties;
 
 public class DeviceGraphicsUpdate extends Thread {
 	JPanel canvas;

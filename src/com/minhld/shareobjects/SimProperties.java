@@ -1,4 +1,4 @@
-package com.minhld.utils;
+package com.minhld.shareobjects;
 
 import java.io.File;
 import java.io.FileInputStream;
