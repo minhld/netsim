@@ -10,6 +10,9 @@ import java.util.Properties;
 public class SimProperties {
 	private static HashMap<String, String> innerProps = new HashMap<>();
 	
+	private static int wfdMaxRange = 0;
+	private static int detectPeersSpeed = 0;
+	
 	@SuppressWarnings("rawtypes")
 	public static void loadProps(String file) {
 		try {
@@ -42,4 +45,29 @@ public class SimProperties {
 	public static int getIntProp(String propName) {
 		return Integer.parseInt(innerProps.get(propName));
 	}
+	
+	/**
+     * get WiFi Direct max range in virtual unit
+     * @return
+     */
+    public static int getWFDMaxRange() {
+    	if (wfdMaxRange <= 0) {
+    		int wfdVirtualMaxRange = SimProperties.getIntProp("wifi-direct-max-range");
+    		int nwScale = SimProperties.getIntProp("network-scale");
+    		wfdMaxRange = wfdVirtualMaxRange / nwScale;
+    	}
+    	return SimProperties.wfdMaxRange;
+    }
+    
+    /**
+     * get peers detection speed 
+     * 
+     * @return
+     */
+    public static int getPeersDetectSpeed() {
+    	if (detectPeersSpeed <= 0) {
+    		detectPeersSpeed = SimProperties.getIntProp("detect-peer-speed");
+    	}
+    	return SimProperties.detectPeersSpeed;
+    }
 }

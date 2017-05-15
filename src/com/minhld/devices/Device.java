@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import com.minhld.movements.Movement;
 import com.minhld.movements.MovementFactory;
+import com.minhld.shareobjects.DeviceLocations;
 import com.minhld.shareobjects.SimProperties;
 import com.minhld.utils.SignalClient;
 
@@ -29,9 +30,9 @@ public abstract class Device extends Thread {
 	public DeviceType type;
 	public Point location;
 	
-	public int ram;			// GB
-	public int CPU;			// GHz
-	public float battery;	// capacity = (total mAh / 1000)
+	public double ram;			// GB
+	public double CPU;			// GHz
+	public double battery;		// mAh
 	
 //	/**
 //	 * list of nearby device
@@ -59,6 +60,9 @@ public abstract class Device extends Thread {
 		// start randomly moving
 		startMoving();
 		
+		// keep track of the nearby devices
+		detectNearbyDevices();
+		
 		// start signal client to send locations to server
 		new SignalClient2().start();
 	}
@@ -77,6 +81,10 @@ public abstract class Device extends Thread {
 	 */
 	protected void setupInfo() {
 		// this.name = UUID.randomUUID().toString();
+		double[] specs = DeviceUtils.getRandomSpecs();
+		this.ram = specs[0];
+		this.CPU = specs[1];
+		this.battery = specs[2];
 	}
 	
 	/**
@@ -87,7 +95,11 @@ public abstract class Device extends Thread {
 		new Thread() {
 			@Override
 			public void run() {
+				String[] nearKeyList = DeviceLocations.getNearbyDevices(Device.this);
 				
+				try {
+					sleep(SimProperties.getPeersDetectSpeed());
+				} catch (Exception e) { }
 			}
 		}.start();
 	}
@@ -190,16 +202,12 @@ public abstract class Device extends Thread {
 	public String getDeviceInfo() {
 		// get list of the nearby devices
 		String keySets = "";
-//		for (String deviceName : nearbyDevices.keySet()) {
-//			keySets += "," + deviceName;
-//		}
-//		if (keySets.length() > 1) { 
-//			keySets = keySets.substring(1);
-//		}
 		
 		return "name=" + Device.this.getName() + ";" + 
 				"x=" + Device.this.location.x + ";" + 
 				"y=" + Device.this.location.y + ";" + 
 				"nearbys=" + keySets + "";
 	}
+	
+	
 }

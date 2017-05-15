@@ -8,8 +8,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+
 public class Utils {
-	
+
 	/**
      * read file and return binary array
      *
@@ -56,4 +57,5 @@ public class Utils {
         ObjectInputStream o = new ObjectInputStream(b);
         return o.readObject();
     }
+    
 }
