@@ -12,7 +12,7 @@ public class DeviceLocations {
 	// QuadTree<Integer, String> quadTree = new QuadTree<Integer, String>();
 	static HashMap<String, Point> deviceLocations = new HashMap<>();
 	
-	public static void updateLocation(String deviceKey, Point location) {
+	synchronized public static void updateLocation(String deviceKey, Point location) {
 		deviceLocations.put(deviceKey, location);
 	}
 	
@@ -23,21 +23,23 @@ public class DeviceLocations {
 	 * @param device device which nearby devices are distanced to
 	 * @return list of device keys
 	 */
-	public static String[] getNearbyDevices(Device device) {
+	synchronized public static String[] getNearbyDevices(Device device) {
 		List<String> nearbyDevices = new ArrayList<String>();
 		Point devLoc = null;
-		double distance = 0;
 		for (String key : deviceLocations.keySet()) {
+			// skip itself
+			if (key.equals(device.name)) continue;
+			
 			devLoc = deviceLocations.get(key);
-			distance = estimateDistance(device.location, devLoc);
-			if (distance < SimProperties.getWFDMaxRange()) {
+			if (isClosed(device.location, devLoc)) {
 				nearbyDevices.add(key);
 			}
 		}
 		return nearbyDevices.toArray(new String[] {});
 	}
 	
-	private static double estimateDistance(Point p1, Point p2) {
-		return 0;
+	private static boolean isClosed(Point p1, Point p2) {
+		double distance = Math.sqrt(Math.pow(p1.getX() - p2.getX(), 2) + Math.pow(p1.getY() - p2.getY(), 2));
+		return distance < SimProperties.getWFDMaxRange();
 	}
 }

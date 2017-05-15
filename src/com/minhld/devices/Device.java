@@ -16,7 +16,7 @@ import com.minhld.utils.SignalClient;
  * @author minhld
  *
  */
-public abstract class Device extends Thread {
+public class Device extends Thread {
 	/**
 	 * main device type
 	 */
@@ -34,10 +34,6 @@ public abstract class Device extends Thread {
 	public double CPU;			// GHz
 	public double battery;		// mAh
 	
-//	/**
-//	 * list of nearby device
-//	 */
-//	public HashMap<String, Device> nearbyDevices = new HashMap<String, Device>();
 	/**
 	 * main listener
 	 */
@@ -54,7 +50,7 @@ public abstract class Device extends Thread {
 	 * the main entry points
 	 */
 	public void run() {
-		// create random information
+		// create random information (RAM, CPU and battery)
 		setupInfo();
 		
 		// start randomly moving
@@ -142,11 +138,6 @@ public abstract class Device extends Thread {
 	}
 
 	/**
-	 * connects to a nearby device
-	 */
-	public abstract void connectToDevice();
-
-	/**
 	 * assign movement by ID. this will be matched with the 
 	 * configuration file.
 	 * 
@@ -165,19 +156,19 @@ public abstract class Device extends Thread {
 		this.movement = movement;
 	}
 	
-	/** specifications of the device
-	 * 
-	 * @author minhle
-	 */
-	public class Specs {
-		public float cpu;
-		public float cpuPerc;
-		public int ram;
-		public float ramPerc;
-		public int batteryCap;
-		public float batteryPerc;
-		public float RL;
-	}
+//	/** specifications of the device
+//	 * 
+//	 * @author minhle
+//	 */
+//	public class Specs {
+//		public float cpu;
+//		public float cpuPerc;
+//		public int ram;
+//		public float ramPerc;
+//		public int batteryCap;
+//		public float batteryPerc;
+//		public float RL;
+//	}
 	
 	/**
 	 * provides the listener to the device object

@@ -5,7 +5,6 @@ import java.util.HashMap;
 
 
 import com.minhld.devices.Device;
-import com.minhld.devices.MobileDevice;
 import com.minhld.shareobjects.DeviceList;
 import com.minhld.shareobjects.DeviceLocations;
 import com.minhld.shareobjects.SimProperties;
@@ -42,11 +41,11 @@ public class DeviceStartUp extends Thread {
 		
 		int movementId = SimProperties.getIntProp("movement-id");
 		
-		MobileDevice dev;
+		Device dev;
 		String deviceKey;
 		for (int i = 0; i < numOfDevs; i++) {
 			deviceKey = Integer.toString(i);
-			dev = new MobileDevice();
+			dev = new Device();
 			dev.name = deviceKey;
 			dev.setMovement(movementId);
 			dev.setDeviceListener(new SubDeviceListener(deviceKey));
