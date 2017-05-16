@@ -4,11 +4,15 @@ import com.minhld.devices.Device;
 
 public class WiFiDirectManager extends NetworkManager {
 	
-	private NetworkListener listener;
-	
 	public boolean isConnected = false;
 	public boolean groupOwner = false;
 	
+	private NetworkListener listener;
+
+	public void setNetworkListener(NetworkListener listener) {
+		this.listener = listener;
+	}
+
 	public WiFiDirectManager(Device device) {
 		super(device);
 	}
@@ -17,11 +21,15 @@ public class WiFiDirectManager extends NetworkManager {
 		
 	}
 	
-	public void setNetworkListener(NetworkListener listener) {
-		this.listener = listener;
-	}
-	
+	/**
+	 * return events occurred by the Network Manager
+	 * 
+	 * @author minhle
+	 *
+	 */
 	public interface NetworkListener {
-		
+		public void connected(String devKeys[]);
+		public void disconnected(String devKeys[]);
+		public void isGroupOwner(boolean isGroupOwner);
 	}
 }

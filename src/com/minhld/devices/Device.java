@@ -8,6 +8,7 @@ import com.minhld.movements.MovementFactory;
 import com.minhld.shareobjects.DeviceLocations;
 import com.minhld.shareobjects.SimProperties;
 import com.minhld.utils.SignalClient;
+import com.minhld.wifidirect.NetworkUtils;
 
 /**
  * represents a virtual device, it could be a mobile device, mobile edge device
@@ -91,8 +92,13 @@ public class Device extends Thread {
 		new Thread() {
 			@Override
 			public void run() {
+				// get the list of nearby devices
 				String[] nearKeyList = DeviceLocations.getNearbyDevices(Device.this);
+				// check if connections are available between this device
+				// and the nearby ones
+				NetworkUtils.checkConnections(nearKeyList);
 				
+				// wait for a while before restarting this loop
 				try {
 					sleep(SimProperties.getPeersDetectSpeed());
 				} catch (Exception e) { }
