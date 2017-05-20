@@ -17,14 +17,14 @@ import com.minhld.wifidirect.NetworkUtils;
  * @author minhld
  *
  */
-public class Device extends Thread {
+public abstract class Device extends Thread {
 	/**
 	 * main device type
 	 */
 	public enum DeviceType {
 		Mobile,
-		MobileEdge,
-		StationaryServer
+		Edge,
+		Cloud
 	}
 	
 	public String name;
