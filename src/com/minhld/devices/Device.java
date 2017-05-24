@@ -161,21 +161,7 @@ public abstract class Device extends Thread {
 	public void setMovement(Movement movement) {
 		this.movement = movement;
 	}
-	
-//	/** specifications of the device
-//	 * 
-//	 * @author minhle
-//	 */
-//	public class Specs {
-//		public float cpu;
-//		public float cpuPerc;
-//		public int ram;
-//		public float ramPerc;
-//		public int batteryCap;
-//		public float batteryPerc;
-//		public float RL;
-//	}
-	
+		
 	/**
 	 * provides the listener to the device object
 	 * @author minhle
